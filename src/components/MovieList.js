@@ -9,8 +9,6 @@ import Col from 'react-bootstrap/Col';
 import MovieCard from './MovieCard';
 
 function MovieList(props){
-    
-    console.log(props);
     return(
         <Container fluid={true}>
             <Row>
@@ -22,7 +20,13 @@ function MovieList(props){
                 <CardDeck style={{flexWrap: 'nowrap', overflow:'auto'}}>
                     {
                         props.movies ? 
-                        props.movies.map(movie => <MovieCard key={movie.id} movie={movie} />)
+                        props.movies.map(movie => (
+                            <MovieCard 
+                                key={movie.id}
+                                movie={movie} 
+                                onClick={() => {console.log(movie.id)}} 
+                            />
+                        ))
                         : null
                     }
                 </CardDeck>
