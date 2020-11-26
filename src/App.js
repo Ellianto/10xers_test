@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
+
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -26,7 +29,10 @@ function App() {
     useEffect(() => {
         const fetchMovieLists = async () => {
             const movieLists = await Promise.all(genres.map(async genre => {
-                return await getMovieListByGenre(genre.id);
+                return {
+                    genre: genre.name,
+                    movies: await getMovieListByGenre(genre.id),
+                }
             }));
 
             setAPIMovieList(movieLists);
@@ -49,12 +55,17 @@ function App() {
                     <Carousel></Carousel>
                 </Col>
             </Row>
-            {/* Sample Movie List, Design it properlu then foreach it */}
-            <Row>
-                <Col>
-                    <MovieList></MovieList>
-                </Col>
-            </Row>
+            {/* Sample Movie List, Design it properly then foreach it */}
+            {
+                apiMovieList.length > 0 ?
+                (
+                    <Row>
+                        <Col>
+                            <MovieList movies={apiMovieList[0].movies} genre={apiMovieList[0].genre} />
+                        </Col>
+                    </Row>
+                ) : null
+            }
         </Container>
     );
 }
