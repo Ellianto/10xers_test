@@ -65,21 +65,6 @@ function App() {
         }
     }, [listUpdated]);
 
-    // const CarouselRefWrapper = React.useRef((props, ref) => (
-    //     <Carousel.Item ref={ref}>
-    //         <img
-    //             className="d-block w-100"
-    //             style={{objectFit:'cover'}}
-    //             src={getMovieBackdropUrl(props.movie.backdrop_path)}
-    //             alt={props.movie.title + " Backdrop Image"}
-    //             height={320}
-    //         />
-    //         <Carousel.Caption className="text-left align-middle">
-    //             <h1>MovieList</h1>
-    //         </Carousel.Caption>
-    //     </Carousel.Item>
-    // ))
-
     return (
         <>
             <Navbar sticky='top' className='p-0'>
@@ -93,11 +78,11 @@ function App() {
                         topMovieList.map(movie => (
                             <Carousel.Item key={movie.id}>
                                 <img
-                                    className="d-block w-100"
+                                    className="d-block w-100 align-top"
                                     style={{objectFit:'cover'}}
                                     src={getMovieBackdropUrl(movie.backdrop_path)}
                                     alt={movie.title + " Backdrop Image"}
-                                    height={320}
+                                    height={240}
                                 />
                                 <Carousel.Caption className="text-left align-middle">
                                     <h1>MovieList</h1>
