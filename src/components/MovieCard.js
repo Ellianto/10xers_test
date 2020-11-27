@@ -7,6 +7,8 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Tooltip from 'react-bootstrap/Tooltip'
 import {getMoviePosterUrl} from '../api';
 
+// Clampy seems buggy on development (crashes on window size change)
+// TODO: Check on production, or look for alternatives/solution
 import Clampy from '@clampy-js/react-clampy'
 import { removeFromMyList } from '../storage';
 
@@ -29,7 +31,7 @@ function MovieCard(props){
             <Card.Body>
                 <Card.Title>
                     {
-                        movie.title.length > 25 ? movie.title.substr(0, 21)  + '...' : movie.title
+                        movie.title.length > 22 ? movie.title.substr(0, 20)  + '...' : movie.title
                     }
                 </Card.Title>
                 <Card.Text as="div">

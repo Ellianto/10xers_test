@@ -110,18 +110,20 @@ function App() {
             }
             {
                 apiMovieList.length <= 0 ? null :
-                <Row>
-                    <Col className="mt-4 mb-4">
-                        <MovieList 
-                            movies={apiMovieList[0].movies} 
-                            genre={apiMovieList[0].genre} 
-                            onClick={(movieData) => {
-                                addToMyList(movieData);
-                                setListUpdated(true);
-                            }}
-                        />
-                    </Col>
-                </Row>
+                apiMovieList.map(apiMovie => (
+                    <Row key={`genre-${apiMovie.genre}`}>
+                        <Col className="mt-4 mb-4">
+                            <MovieList 
+                                movies={apiMovie.movies} 
+                                genre={apiMovie.genre} 
+                                onClick={(movieData) => {
+                                    addToMyList(movieData);
+                                    setListUpdated(true);
+                                }}
+                            />
+                        </Col>
+                    </Row>
+                ))
             }
         </Container>
     );

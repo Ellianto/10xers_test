@@ -25,7 +25,7 @@ function MovieList(props){
                     :
                         props.movies.length === 1 ?
                         props.movies.map(movie => (
-                            <MovieCard 
+                            <MovieCard
                                 key={movie.id}
                                 movie={movie} 
                                 onClick={props.onClick ? props.onClick : null} 
