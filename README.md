@@ -1,18 +1,26 @@
-# Getting Started with Create React App
+# 10xers Demo Project  
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and created as an assessment entry for the 10xers assessment test.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and created as an assessment entry for the 10xers assessment test. It uses the Bootstrap UI Framework Components sourced from ```react-boostrap``` library.  
 
-The built project is hosted with Firebase Hosting [here](https://xers-demo.web.app/).
+The built project is hosted with Firebase Hosting [here](https://xers-demo.web.app/).  
 
-To build the app, make sure to install all the dependencies with the following command at the root folder
+## Building the app  
 
-> npm install
+To build the app, make sure to install all the dependencies with the following command at the root folder  
 
-Then run the ```npm run build``` command to generate a build folder
+```
+npm install  
+```
 
-> npm run build
+Then run the ```npm run build``` command to generate a build folder  
 
-If you want to serve the built project, you can use the ```serve``` library to do it
+```
+npm run build  
+```
 
-> npm install -g serve
-> serve -s build
+If you want to serve the built project, you can use the ```serve``` library to do it  
+
+```
+npm install -g serve  
+serve -s build  
+```
