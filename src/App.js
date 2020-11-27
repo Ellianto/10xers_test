@@ -9,7 +9,7 @@ import Col from 'react-bootstrap/Col';
 import MovieList from './components/MovieList';
 import CustomHeader from './components/CustomHeader';
 
-import { getGenres, getMovieListByGenre, getPopularMovies } from './api.js';
+import { getGenres, getMovieListByGenre, getPopularMovies } from './api';
 import { getMyList } from './storage';
 
 function App() {
