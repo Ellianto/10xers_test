@@ -1,0 +1,19 @@
+.header-container{
+    position:relative;
+    color:white;
+}
+
+.header-gradient{
+    position:absolute;
+    top:0%;
+    left:0%;
+    height:100%;
+    width:100%;
+    background: linear-gradient(to top right, black, rgba(0,0,0,0.4))
+}
+
+.header-element{
+    position:absolute;
+    top:70%;
+    left:5%;
+}

@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css'
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Carousel from 'react-bootstrap/Carousel';
 import Navbar from 'react-bootstrap/Navbar';
+
+import "react-responsive-carousel/lib/styles/carousel.min.css"; 
+import {Carousel} from 'react-responsive-carousel';
 
 import MovieList from './components/MovieList';
 import { getGenres, getMovieBackdropUrl, getMovieListByGenre, getPopularMovies } from './api.js';
@@ -59,7 +62,6 @@ function App() {
     //!Fetch My Movie List from LocalStorage
     useEffect(() => {
         if(listUpdated){
-            console.log("Test");
             setMyList(getMyList());
             setListUpdated(false);
         }
@@ -68,32 +70,40 @@ function App() {
     return (
         <>
             <Navbar sticky='top' className='p-0'>
-                <Carousel
-                    className="w-100 mx-auto"
-                    fade={true}
-                    slide={true}
-                    controls={false}
-                    indicators={false}
-                    pause={false}
-                >
-                    {
-                        topMovieList.length <= 0 ? null :
-                        topMovieList.map(movie => (
-                            <Carousel.Item key={movie.id}>
-                                <img
-                                    className="d-block w-100"
-                                    style={{objectFit:'cover'}}
-                                    src={getMovieBackdropUrl(movie.backdrop_path)}
-                                    alt={movie.title + " Backdrop Image"}
-                                    height={300}
-                                />
-                                <Carousel.Caption className="text-left align-middle">
-                                    <h1>MovieList</h1>
-                                </Carousel.Caption>
-                            </Carousel.Item>
-                        ))
-                    }
-                </Carousel>
+                {
+                    topMovieList.length <= 0 ? null :
+                    <div className='header-container'>
+                        <Carousel
+                            autoPlay={true}
+                            infiniteLoop={true}
+                            showArrows={false}
+                            showIndicators={false}
+                            showStatus={false}
+                            showThumbs={false}
+                            stopOnHover={false}
+                            swipable={false}
+                        >
+                            {
+                                topMovieList.map(movie => (
+                                    <div key={movie.id}>
+                                        <img
+                                            className="d-block w-100"
+                                            style={{objectFit:'cover', objectPosition:'right center'}}
+                                            src={getMovieBackdropUrl(movie.backdrop_path)}
+                                            alt={movie.title + " Backdrop Image"}
+                                            height={300}
+                                        />
+                                    </div>
+                                ))
+                            }
+                        </Carousel>
+                        <div className='header-gradient'>
+                            <div className='header-element'>
+                                <h1> MovieList </h1>
+                            </div>
+                        </div>
+                    </div>
+                }
             </Navbar>
             <Container fluid={true}>
                 {

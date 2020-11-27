@@ -3,7 +3,10 @@ export const getMyList = () => {
 
     for(let ctr = 0; ctr < localStorage.length; ctr++){
         const myMovieData = localStorage.getItem(localStorage.key(ctr));
-        myMovieList.push(JSON.parse(myMovieData));
+
+        if(myMovieData){
+            myMovieList.push(JSON.parse(myMovieData));
+        }
     }
 
     return myMovieList;
