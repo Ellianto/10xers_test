@@ -12,14 +12,14 @@ function MovieList(props){
     return(
         <Container fluid={true}>
             <Row>
-                <Col>
+                <Col xs={3} className="h-100">
                     <h3> {props.genre ? `${props.genre} Movies` : 'My Movies List'} </h3>
                 </Col>
             </Row>
             <Row> 
                 {
                     !props.movies || props.movies.length <= 0 ? 
-                    <Col>
+                    <Col xs={10} sm={5} md={3}>
                         <h5 className='text-center'> Nothing to see here! Scroll to discover more... </h5>
                     </Col>
                     :
