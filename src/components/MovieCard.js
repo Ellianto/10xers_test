@@ -5,7 +5,7 @@ import Card from 'react-bootstrap/Card'
 import Col from 'react-bootstrap/Col'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Tooltip from 'react-bootstrap/Tooltip'
-import {getMoviePosterUrl} from '../api';
+import {getMovieBackdropUrl} from '../api';
 
 // Clampy seems buggy on development (crashes on window size change)
 // TODO: Check on production, or look for alternatives/solution
@@ -20,13 +20,14 @@ function MovieCard(props){
             props.onClick(movie);
         }
     }
+
     const cardElement = (
         <Card onClick={onClickCardElement}>
             <Card.Img 
                 variant='top' 
-                src={getMoviePosterUrl(movie.poster_path)} 
+                src={getMovieBackdropUrl(movie.backdrop_path, true)} 
                 alt={`${movie.title} Poster Image`} 
-                height="420"/>
+                width="300"/>
             {/* TODO:Swap with Card.ImgOverlay and add onHover fade in */}
             <Card.Body>
                 <Card.Title>

@@ -24,13 +24,22 @@ const getPopularMovies = async (limit=5) => {
 //Image configs available at the /configuration endpoint
 const BASE_IMAGE_URL = 'https://image.tmdb.org/t/p/';
 const posterSize = 'w342';
-const backdropSize = 'w1280';
+const smallBackdropSize = 'w300';
+const largeBackdropSize = 'w1280';
 const getMoviePosterUrl = (posterPath) => {
     return `${BASE_IMAGE_URL}${posterSize}${posterPath}`;
 }
 
-const getMovieBackdropUrl = (posterPath) => {
-    return `${BASE_IMAGE_URL}${backdropSize}${posterPath}`;
+const getMovieBackdropUrl = (backdropPath, small = false) => {
+    if(!backdropPath){
+        return 'https://images.placeholders.dev/?width=300&height=170&text=Missing%20Backdrop';
+    }
+
+    if(small){
+        return `${BASE_IMAGE_URL}${smallBackdropSize}${backdropPath}`;
+    } else {
+        return `${BASE_IMAGE_URL}${largeBackdropSize}${backdropPath}`;
+    }
 }
 
 exports.getGenres = getGenres;

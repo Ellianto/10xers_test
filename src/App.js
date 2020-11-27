@@ -6,6 +6,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Carousel from 'react-bootstrap/Carousel';
+import Navbar from 'react-bootstrap/Navbar';
+
 import MovieList from './components/MovieList';
 import { getGenres, getMovieBackdropUrl, getMovieListByGenre, getPopularMovies } from './api';
 import { getMyList, addToMyList } from './storage';
@@ -63,69 +65,82 @@ function App() {
         }
     }, [listUpdated]);
 
+    // const CarouselRefWrapper = React.useRef((props, ref) => (
+    //     <Carousel.Item ref={ref}>
+    //         <img
+    //             className="d-block w-100"
+    //             style={{objectFit:'cover'}}
+    //             src={getMovieBackdropUrl(props.movie.backdrop_path)}
+    //             alt={props.movie.title + " Backdrop Image"}
+    //             height={320}
+    //         />
+    //         <Carousel.Caption className="text-left align-middle">
+    //             <h1>MovieList</h1>
+    //         </Carousel.Caption>
+    //     </Carousel.Item>
+    // ))
+
     return (
-        <Container fluid={true}>
-            <Row>
-                <Col>
-                    <Carousel
-                        slide={true}
-                        controls={false}
-                        indicators={false}
-                        pause={false}
-                        touch={false}
-                    >
-                        {
-                            topMovieList.length <= 0 ? null :
-                            topMovieList.map(topMovie => (
-                                <Carousel.Item key={topMovie.id}>
-                                    <img
-                                        className="d-block w-100"
-                                        style={{objectFit:'cover'}}
-                                        src={getMovieBackdropUrl(topMovie.backdrop_path)}
-                                        alt={topMovie.title + " Backdrop Image"}
-                                        height="320"
-                                    />
-                                    <Carousel.Caption className="text-left align-middle">
-                                        <h1>MovieList</h1>
-                                    </Carousel.Caption>
-                                </Carousel.Item>
-                            ))
-                        }
-                    </Carousel>
-                </Col>
-            </Row>
-            {
-                // My Movie List
-                <Row>
-                    <Col className="mt-4 mb-4">
-                        <MovieList 
-                            movies={myList} 
-                            genre={null} 
-                            onHover={() => {
-                                setListUpdated(true);
-                            }}
-                        />
-                    </Col>
-                </Row>
-            }
-            {
-                apiMovieList.length <= 0 ? null :
-                apiMovieList.map(apiMovie => (
-                    <Row key={`genre-${apiMovie.genre}`}>
+        <>
+            <Navbar sticky='top' className='p-0'>
+                <Carousel
+                    className="w-100 mx-auto"
+                    controls={false}
+                    indicators={false}
+                >
+                    {
+                        topMovieList.length <= 0 ? null :
+                        topMovieList.map(movie => (
+                            <Carousel.Item key={movie.id}>
+                                <img
+                                    className="d-block w-100"
+                                    style={{objectFit:'cover'}}
+                                    src={getMovieBackdropUrl(movie.backdrop_path)}
+                                    alt={movie.title + " Backdrop Image"}
+                                    height={320}
+                                />
+                                <Carousel.Caption className="text-left align-middle">
+                                    <h1>MovieList</h1>
+                                </Carousel.Caption>
+                            </Carousel.Item>
+                        ))
+                    }
+                </Carousel>
+            </Navbar>
+            <Container fluid={true}>
+                {
+                    // My Movie List
+                    <Row>
                         <Col className="mt-4 mb-4">
                             <MovieList 
-                                movies={apiMovie.movies} 
-                                genre={apiMovie.genre} 
-                                onClick={(movieData) => {
-                                    addToMyList(movieData);
+                                movies={myList} 
+                                genre={null} 
+                                onHover={() => {
                                     setListUpdated(true);
                                 }}
                             />
                         </Col>
                     </Row>
-                ))
-            }
-        </Container>
+                }
+                {
+                    apiMovieList.length <= 0 ? null :
+                    apiMovieList.map(apiMovie => (
+                        <Row key={`genre-${apiMovie.genre}`}>
+                            <Col className="mt-4 mb-4">
+                                <MovieList 
+                                    movies={apiMovie.movies} 
+                                    genre={apiMovie.genre} 
+                                    onClick={(movieData) => {
+                                        addToMyList(movieData);
+                                        setListUpdated(true);
+                                    }}
+                                />
+                            </Col>
+                        </Row>
+                    ))
+                }
+            </Container>
+        </>
     );
 }
 
