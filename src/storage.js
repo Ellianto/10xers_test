@@ -1,4 +1,4 @@
-const getMyList = () => {
+export const getMyList = () => {
     let myMovieList = [];
 
     for(let ctr = 0; ctr < localStorage.length; ctr++){
@@ -9,7 +9,7 @@ const getMyList = () => {
     return myMovieList;
 }
 
-const addToMyList = (movieData) => {
+export const addToMyList = (movieData) => {
     const duplicateItem = localStorage.getItem(movieData.id);
     if(duplicateItem){
         return;
@@ -18,11 +18,7 @@ const addToMyList = (movieData) => {
     localStorage.setItem(movieData.id, JSON.stringify(movieData));
 }
 
-const removeFromMyList = (movieId) => {
+export const removeFromMyList = (movieId) => {
     localStorage.removeItem(movieId);
     console.log("Removed movie with ID ", movieId);
 }
-
-exports.getMyList = getMyList;
-exports.addToMyList = addToMyList;
-exports.removeFromMyList = removeFromMyList;

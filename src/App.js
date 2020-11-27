@@ -9,8 +9,8 @@ import Carousel from 'react-bootstrap/Carousel';
 import Navbar from 'react-bootstrap/Navbar';
 
 import MovieList from './components/MovieList';
-import { getGenres, getMovieBackdropUrl, getMovieListByGenre, getPopularMovies } from './api';
-import { getMyList, addToMyList } from './storage';
+import { getGenres, getMovieBackdropUrl, getMovieListByGenre, getPopularMovies } from './api.js';
+import { getMyList, addToMyList } from './storage.js';
 
 function App() {
     const [listUpdated, setListUpdated] = useState(false);
