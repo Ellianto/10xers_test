@@ -19,7 +19,7 @@ function MovieList(props){
             <Row> 
                 <CardDeck style={{flexWrap: 'nowrap', overflow:'auto'}}>
                     {
-                        props.movies ? 
+                        !props.movies ? null :
                         props.movies.map(movie => (
                             <MovieCard 
                                 key={movie.id}
@@ -27,7 +27,6 @@ function MovieList(props){
                                 onClick={() => {console.log(movie.id)}} 
                             />
                         ))
-                        : null
                     }
                 </CardDeck>
             </Row>

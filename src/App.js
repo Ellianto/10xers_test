@@ -58,7 +58,7 @@ function App() {
             <Row>
                 <Col>
                     <Carousel
-                        fade={true}
+                        slide={true}
                         controls={false}
                         indicators={false}
                         pause={false}
@@ -75,6 +75,9 @@ function App() {
                                         alt={topMovie.title + " Backdrop Image"}
                                         height="320"
                                     />
+                                    <Carousel.Caption className="text-left align-middle">
+                                        <h1>MovieList</h1>
+                                    </Carousel.Caption>
                                 </Carousel.Item>
                             ))
                         }
