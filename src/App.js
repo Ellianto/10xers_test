@@ -8,15 +8,16 @@ import Col from 'react-bootstrap/Col';
 import Carousel from 'react-bootstrap/Carousel';
 import MovieList from './components/MovieList';
 import { getGenres, getMovieBackdropUrl, getMovieListByGenre, getPopularMovies } from './api';
-import { getMyList } from './storage';
+import { getMyList, addToMyList } from './storage';
 
 function App() {
+    const [listUpdated, setListUpdated] = useState(false);
     const [myList, setMyList] = useState([]);
     const [genres, setGenres] = useState([]);
     const [apiMovieList, setAPIMovieList] = useState([]);
     const [topMovieList, setTopMovieList] = useState([]);
 
-    //!Fetch genres and top 5 movies from APIs on page load
+    //!On Component Mount
     useEffect(() => {
         const initialGenreFetch = async () => {
             setGenres(await getGenres());
@@ -26,8 +27,13 @@ function App() {
             setTopMovieList(await getPopularMovies());
         }
 
+        const initialMyMoviesFetch = () => {
+            setMyList(getMyList());
+        }
+
         initialGenreFetch();
         initialTop5MovieFetch();
+        initialMyMoviesFetch();
     }, []);
 
     //!Based on fetched genre, fetch the movies
@@ -50,8 +56,12 @@ function App() {
 
     //!Fetch My Movie List from LocalStorage
     useEffect(() => {
-        getMyList();
-    }, []);
+        if(listUpdated){
+            console.log("Test");
+            setMyList(getMyList());
+            setListUpdated(false);
+        }
+    }, [listUpdated]);
 
     return (
         <Container fluid={true}>
@@ -84,16 +94,34 @@ function App() {
                     </Carousel>
                 </Col>
             </Row>
-            {/* Sample Movie List, Design it properly then foreach it */}
             {
-                apiMovieList.length > 0 ?
-                (
-                    <Row>
-                        <Col>
-                            <MovieList movies={apiMovieList[0].movies} genre={apiMovieList[0].genre} />
-                        </Col>
-                    </Row>
-                ) : null
+                // My Movie List
+                <Row>
+                    <Col className="mt-4 mb-4">
+                        <MovieList 
+                            movies={myList} 
+                            genre={null} 
+                            onHover={() => {
+                                setListUpdated(true);
+                            }}
+                        />
+                    </Col>
+                </Row>
+            }
+            {
+                apiMovieList.length <= 0 ? null :
+                <Row>
+                    <Col className="mt-4 mb-4">
+                        <MovieList 
+                            movies={apiMovieList[0].movies} 
+                            genre={apiMovieList[0].genre} 
+                            onClick={(movieData) => {
+                                addToMyList(movieData);
+                                setListUpdated(true);
+                            }}
+                        />
+                    </Col>
+                </Row>
             }
         </Container>
     );

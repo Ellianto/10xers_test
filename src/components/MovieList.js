@@ -13,22 +13,39 @@ function MovieList(props){
         <Container fluid={true}>
             <Row>
                 <Col>
-                    <h3> {props.genre ? `${props.genre} Movies` : ''} </h3>
+                    <h3> {props.genre ? `${props.genre} Movies` : 'My Movies List'} </h3>
                 </Col>
             </Row>
             <Row> 
-                <CardDeck style={{flexWrap: 'nowrap', overflow:'auto'}}>
-                    {
-                        !props.movies ? null :
+                {
+                    !props.movies || props.movies.length <= 0 ? 
+                    <Col>
+                        <h5 className='text-center'> Nothing to see here! Scroll to discover more... </h5>
+                    </Col>
+                    :
+                        props.movies.length === 1 ?
                         props.movies.map(movie => (
                             <MovieCard 
                                 key={movie.id}
                                 movie={movie} 
-                                onClick={() => {console.log(movie.id)}} 
+                                onClick={props.onClick ? props.onClick : null} 
+                                onHover={props.onHover ? props.onHover : null}
                             />
                         ))
-                    }
-                </CardDeck>
+                        :
+                        <CardDeck style={{flexWrap: 'nowrap', overflow:'auto'}}>
+                            {
+                                props.movies.map(movie => (
+                                    <MovieCard 
+                                        key={movie.id}
+                                        movie={movie} 
+                                        onClick={props.onClick ? props.onClick : null} 
+                                        onHover={props.onHover ? props.onHover : null}
+                                    />
+                                ))
+                            }
+                        </CardDeck>
+                }
             </Row>
         </Container>
     );
