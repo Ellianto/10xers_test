@@ -10,14 +10,45 @@ import {getMovieBackdropUrl} from '../api';
 // Clampy seems buggy on development (crashes on window size change)
 // TODO: Check on production, or look for alternatives/solution
 // import Clampy from '@clampy-js/react-clampy'
-import { removeFromMyList } from '../storage';
+
+import { removeFromMyList, addToMyList } from '../storage';
+import swal from 'sweetalert';
 
 function MovieCard(props){
     const movie = props.movie;
 
+    // Save to Local Storage on Click
     const onClickCardElement = () => {
         if(props.onClick){
-            props.onClick(movie);
+            // Confirm Save Swal
+            swal({
+                title: 'Confirm Save to My Movie List',
+                text: 'Are you sure you want to save this movie to My Movie List?',
+                icon: 'info',
+                buttons: true,
+            }).then(userConfirm => {
+                if(!userConfirm){
+                    return null;
+                } 
+                
+                const exists = addToMyList(movie);
+                props.onClick();
+
+                // Confirmation swal
+                const successSwalConfig = {
+                    title: 'Saved to My Movie List',
+                    icon: 'success',
+                    timer: 2000,
+                }
+
+                const duplicateSwalConfig = {
+                    title: 'You have already saved this movie!',
+                    icon: 'error',
+                    timer: 2000,
+                }
+
+                swal(exists ? duplicateSwalConfig : successSwalConfig);
+            })
         }
     }
 
@@ -43,12 +74,41 @@ function MovieCard(props){
         </Card>
     );
 
+    // Remove from Local Storage on Delete Button CLick
     const onDeleteButtonClick = () => {
         if(props.onHover){
-            removeFromMyList(movie.id);
-            props.onHover();
+            swal({
+                title: 'Confirm Delete from My Movie List',
+                text: 'Are you sure you want to remove this movie from My Movie List?',
+                icon: 'warning',
+                buttons: true,
+                dangerMode: true,
+            }).then(userConfirm => {
+                if(!userConfirm){
+                    return null;
+                }
+
+                const success = removeFromMyList(movie.id);
+                props.onHover();
+
+                // Confirmation swal
+                const successSwalConfig = {
+                    title: 'Removed From My Movie List',
+                    icon: 'success',
+                    timer: 2000,
+                }
+
+                const failedSwalConfig = {
+                    title: 'Failed to remove from My Movie List!',
+                    icon: 'error',
+                    timer: 2000,
+                }
+
+                swal(success ? successSwalConfig : failedSwalConfig);
+            })
         }
     }
+
     const renderDeleteButton = (props) => (
         <Tooltip placement='auto' {...props}>
             <Button

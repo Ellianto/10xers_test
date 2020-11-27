@@ -15,13 +15,21 @@ export const getMyList = () => {
 export const addToMyList = (movieData) => {
     const duplicateItem = localStorage.getItem(movieData.id);
     if(duplicateItem){
-        return;
+        return true;
     }
 
     localStorage.setItem(movieData.id, JSON.stringify(movieData));
+    return false;
 }
 
 export const removeFromMyList = (movieId) => {
     localStorage.removeItem(movieId);
-    console.log("Removed movie with ID ", movieId);
+
+    if(!localStorage.getItem(movieId)){
+        console.log("Removed movie with ID ", movieId);
+        return true;
+    } 
+    
+    console.log("Failed to remove movie!");
+    return false;
 }

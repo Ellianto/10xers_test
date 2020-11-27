@@ -1,44 +1,35 @@
 import React, { useEffect, useState } from 'react';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css'
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Navbar from 'react-bootstrap/Navbar';
-
-import "react-responsive-carousel/lib/styles/carousel.min.css"; 
-import {Carousel} from 'react-responsive-carousel';
 
 import MovieList from './components/MovieList';
-import { getGenres, getMovieBackdropUrl, getMovieListByGenre, getPopularMovies } from './api.js';
-import { getMyList, addToMyList } from './storage.js';
+import CustomHeader from './components/CustomHeader';
+
+import { getGenres, getMovieListByGenre, getPopularMovies } from './api.js';
+import { getMyList } from './storage';
 
 function App() {
-    const [listUpdated, setListUpdated] = useState(false);
-    const [myList, setMyList] = useState([]);
+    const [listUpdated, setListUpdated] = useState(true);
     const [genres, setGenres] = useState([]);
+    const [savedMovieList, setSavedMovieList] = useState([]);
     const [apiMovieList, setAPIMovieList] = useState([]);
     const [topMovieList, setTopMovieList] = useState([]);
 
     //!On Component Mount
     useEffect(() => {
-        const initialGenreFetch = async () => {
+        const initialFetches = async () => {
+            // Fetch Genre
             setGenres(await getGenres());
-        }
 
-        const initialTop5MovieFetch = async () => {
+            // Fetch Popular Movies for Carousel
             setTopMovieList(await getPopularMovies());
         }
 
-        const initialMyMoviesFetch = () => {
-            setMyList(getMyList());
-        }
-
-        initialGenreFetch();
-        initialTop5MovieFetch();
-        initialMyMoviesFetch();
+        initialFetches();
     }, []);
 
     //!Based on fetched genre, fetch the movies
@@ -57,69 +48,28 @@ function App() {
         if(genres.length > 0){
             fetchMovieLists();
         }
-    }, [genres])
+    }, [genres]);
 
-    //!Fetch My Movie List from LocalStorage
     useEffect(() => {
         if(listUpdated){
-            setMyList(getMyList());
+            setSavedMovieList(getMyList());
             setListUpdated(false);
         }
     }, [listUpdated]);
 
     return (
         <>
-            <Navbar sticky='top' className='p-0'>
-                {
-                    topMovieList.length <= 0 ? null :
-                    <div className='header-container'>
-                        <Carousel
-                            autoPlay={true}
-                            infiniteLoop={true}
-                            showArrows={false}
-                            showIndicators={false}
-                            showStatus={false}
-                            showThumbs={false}
-                            stopOnHover={false}
-                            swipable={false}
-                        >
-                            {
-                                topMovieList.map(movie => (
-                                    <div key={movie.id}>
-                                        <img
-                                            className="d-block w-100"
-                                            style={{objectFit:'cover', objectPosition:'right center'}}
-                                            src={getMovieBackdropUrl(movie.backdrop_path)}
-                                            alt={movie.title + " Backdrop Image"}
-                                            height={300}
-                                        />
-                                    </div>
-                                ))
-                            }
-                        </Carousel>
-                        <div className='header-gradient'>
-                            <div className='header-element'>
-                                <h1> MovieList </h1>
-                            </div>
-                        </div>
-                    </div>
-                }
-            </Navbar>
+            <CustomHeader topMovies={topMovieList} />
             <Container fluid={true}>
-                {
-                    // My Movie List
-                    <Row>
-                        <Col className="mt-4 mb-4">
-                            <MovieList 
-                                movies={myList} 
-                                genre={null} 
-                                onHover={() => {
-                                    setListUpdated(true);
-                                }}
-                            />
-                        </Col>
-                    </Row>
-                }
+                <Row>
+                    <Col className="mt-4 mb-4">
+                        <MovieList 
+                            movies={savedMovieList} 
+                            genre={null} 
+                            onHover={() => {setListUpdated(true)}}
+                        />
+                    </Col>
+                </Row>
                 {
                     apiMovieList.length <= 0 ? null :
                     apiMovieList.map(apiMovie => (
@@ -128,10 +78,7 @@ function App() {
                                 <MovieList 
                                     movies={apiMovie.movies} 
                                     genre={apiMovie.genre} 
-                                    onClick={(movieData) => {
-                                        addToMyList(movieData);
-                                        setListUpdated(true);
-                                    }}
+                                    onClick={() => {setListUpdated(true)}}
                                 />
                             </Col>
                         </Row>

@@ -19,7 +19,7 @@ function MovieList(props){
             <Row> 
                 {
                     !props.movies || props.movies.length <= 0 ? 
-                    <Col xs={10} sm={5} md={3}>
+                    <Col xs={12}>
                         <h5 className='text-center'> Nothing to see here! Scroll to discover more... </h5>
                     </Col>
                     :
