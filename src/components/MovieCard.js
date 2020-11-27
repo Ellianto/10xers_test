@@ -9,7 +9,7 @@ import {getMovieBackdropUrl} from '../api';
 
 // Clampy seems buggy on development (crashes on window size change)
 // TODO: Check on production, or look for alternatives/solution
-import Clampy from '@clampy-js/react-clampy'
+// import Clampy from '@clampy-js/react-clampy'
 import { removeFromMyList } from '../storage';
 
 function MovieCard(props){
@@ -28,7 +28,6 @@ function MovieCard(props){
                 src={getMovieBackdropUrl(movie.backdrop_path, true)} 
                 alt={`${movie.title} Poster Image`} 
                 width="300"/>
-            {/* TODO:Swap with Card.ImgOverlay and add onHover fade in */}
             <Card.Body>
                 <Card.Title>
                     {

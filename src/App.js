@@ -70,19 +70,22 @@ function App() {
             <Navbar sticky='top' className='p-0'>
                 <Carousel
                     className="w-100 mx-auto"
+                    fade={true}
+                    slide={true}
                     controls={false}
                     indicators={false}
+                    pause={false}
                 >
                     {
                         topMovieList.length <= 0 ? null :
                         topMovieList.map(movie => (
                             <Carousel.Item key={movie.id}>
                                 <img
-                                    className="d-block w-100 align-top"
+                                    className="d-block w-100"
                                     style={{objectFit:'cover'}}
                                     src={getMovieBackdropUrl(movie.backdrop_path)}
                                     alt={movie.title + " Backdrop Image"}
-                                    height={240}
+                                    height={300}
                                 />
                                 <Carousel.Caption className="text-left align-middle">
                                     <h1>MovieList</h1>

@@ -1,6 +1,6 @@
 # 10xers Demo Project  
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and created as an assessment entry for the 10xers assessment test. It uses the Bootstrap UI Framework Components sourced from ```react-boostrap``` library.  
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and created as an assessment entry for the 10xers assessment test. It uses the Bootstrap UI Framework Components sourced from ```react-bootstrap``` library.  
 
 The built project is hosted with Firebase Hosting [here](https://xers-demo.web.app/).  
 
