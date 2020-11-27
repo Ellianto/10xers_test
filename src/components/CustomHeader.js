@@ -2,9 +2,6 @@ import React from 'react';
 
 import './CustomHeader.css';
 
-import Navbar from 'react-bootstrap/Navbar';
-import {Sticky, StickyContainer} from 'react-sticky';
-
 import "react-responsive-carousel/lib/styles/carousel.min.css"; 
 import {Carousel} from 'react-responsive-carousel';
 
