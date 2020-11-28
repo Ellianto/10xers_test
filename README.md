@@ -4,6 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 The built project is hosted with Firebase Hosting [here](https://xers-demo.web.app/).  
 
+
 ## Building the app  
 
 To build the app, make sure to install all the dependencies with the following command at the root folder  
@@ -23,4 +24,13 @@ If you want to serve the built project, you can use the ```serve``` library to d
 ```
 npm install -g serve  
 serve -s build  
+```
+
+## Running Unit Tests
+The unit tests are built with ```@testing-library/react``` and the test files are right alongside the components in the ```/src/components/``` directory.  
+
+To run the tests, after running ```npm install``` command,  you can execute the ```npm run test``` command at the root folder.
+
+```
+npm run test
 ```
