@@ -9,6 +9,15 @@ import Col from 'react-bootstrap/Col';
 import MovieCard from './MovieCard';
 
 function MovieList(props){
+    const renderMovieCards = () => props.movies.map(movie => (
+        <MovieCard
+            key={movie.id}
+            movie={movie} 
+            onClick={props.onClick ? props.onClick : null} 
+            onHover={props.onHover ? props.onHover : null}
+        />
+    ));
+
     return(
         <Container fluid={true}>
             <Row>
@@ -23,28 +32,10 @@ function MovieList(props){
                         <h5 className='text-center'> Nothing to see here! Scroll to discover more... </h5>
                     </Col>
                     :
-                        props.movies.length === 1 ?
-                        props.movies.map(movie => (
-                            <MovieCard
-                                key={movie.id}
-                                movie={movie} 
-                                onClick={props.onClick ? props.onClick : null} 
-                                onHover={props.onHover ? props.onHover : null}
-                            />
-                        ))
-                        :
-                        <CardDeck style={{flexWrap: 'nowrap', overflow:'auto'}}>
-                            {
-                                props.movies.map(movie => (
-                                    <MovieCard 
-                                        key={movie.id}
-                                        movie={movie} 
-                                        onClick={props.onClick ? props.onClick : null} 
-                                        onHover={props.onHover ? props.onHover : null}
-                                    />
-                                ))
-                            }
-                        </CardDeck>
+                    props.movies.length === 1 ? renderMovieCards() :
+                    <CardDeck style={{flexWrap: 'nowrap', overflow:'auto'}}>
+                        { renderMovieCards() }
+                    </CardDeck>
                 }
             </Row>
         </Container>

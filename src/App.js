@@ -57,6 +57,18 @@ function App() {
         }
     }, [listUpdated]);
 
+    const renderAPIMovieList = () => apiMovieList.map(apiMovie => (
+        <Row key={`genre-${apiMovie.genre}`}>
+            <Col className="mt-4 mb-4">
+                <MovieList 
+                    movies={apiMovie.movies} 
+                    genre={apiMovie.genre} 
+                    onClick={() => {setListUpdated(true)}}
+                />
+            </Col>
+        </Row>
+    ));
+
     return (
         <>
             <CustomHeader topMovies={topMovieList} />
@@ -71,18 +83,7 @@ function App() {
                     </Col>
                 </Row>
                 {
-                    apiMovieList.length <= 0 ? null :
-                    apiMovieList.map(apiMovie => (
-                        <Row key={`genre-${apiMovie.genre}`}>
-                            <Col className="mt-4 mb-4">
-                                <MovieList 
-                                    movies={apiMovie.movies} 
-                                    genre={apiMovie.genre} 
-                                    onClick={() => {setListUpdated(true)}}
-                                />
-                            </Col>
-                        </Row>
-                    ))
+                    apiMovieList.length <= 0 ? null : renderAPIMovieList()
                 }
             </Container>
         </>

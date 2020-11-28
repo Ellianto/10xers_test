@@ -9,11 +9,22 @@ import {getMovieBackdropUrl} from '../api';
 
 function CustomHeader(props){
     const topMovieList = props.topMovies;
+    
+    const renderTopMoviesList = () => topMovieList.map(movie => (
+        <div key={movie.id}>
+            <img
+                className="d-block w-100"
+                style={{objectFit:'cover', objectPosition:'right center'}}
+                src={getMovieBackdropUrl(movie.backdrop_path)}
+                alt={movie.title + " Backdrop Image"}
+                height={512}
+            />
+        </div>
+    ));
+
 
     return (
-        
-        !topMovieList ? null :
-        topMovieList.length <= 0 ? null :
+        !topMovieList || topMovieList.length <= 0 ? null :
         <div className='sticky-header'>
             <div className='header-container'>
                 <Carousel
@@ -26,19 +37,7 @@ function CustomHeader(props){
                     stopOnHover={false}
                     swipable={false}
                 >
-                    {
-                        topMovieList.map(movie => (
-                            <div key={movie.id}>
-                                <img
-                                    className="d-block w-100"
-                                    style={{objectFit:'cover', objectPosition:'right center'}}
-                                    src={getMovieBackdropUrl(movie.backdrop_path)}
-                                    alt={movie.title + " Backdrop Image"}
-                                    height={512}
-                                />
-                            </div>
-                        ))
-                    }
+                    { renderTopMoviesList() }
                 </Carousel>
                 <div className='header-gradient'>
                     <div className='header-element'>
