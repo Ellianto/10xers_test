@@ -13,7 +13,7 @@ To build the app, make sure to install all the dependencies with the following c
 npm install  
 ```
 
-Then run the ```npm run build``` command to generate a build folder  
+Then run the ```npm run build``` command to generate a built project at the ```/build``` directory
 
 ```
 npm run build  
