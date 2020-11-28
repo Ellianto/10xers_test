@@ -8,7 +8,7 @@ import Tooltip from 'react-bootstrap/Tooltip'
 import {getMovieBackdropUrl} from '../api';
 
 // Clampy seems buggy on development (crashes on window size change)
-// TODO: Check on production, or look for alternatives/solution
+// Should look for alternatives/solution
 // import Clampy from '@clampy-js/react-clampy'
 
 import { removeFromMyList, addToMyList } from '../storage';
