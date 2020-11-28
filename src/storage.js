@@ -1,3 +1,5 @@
+import {movieSchema} from './api'
+
 export const getMyList = () => {
     let myMovieList = [];
 
@@ -5,7 +7,19 @@ export const getMyList = () => {
         const myMovieData = localStorage.getItem(localStorage.key(ctr));
 
         if(myMovieData){
-            myMovieList.push(JSON.parse(myMovieData));
+            try {
+                const parsedJSON = JSON.parse(myMovieData);
+                
+                const {error, value} = movieSchema.validate(parsedJSON);
+                
+                if(error){
+                    throw error;
+                }
+
+                myMovieList.push(value);
+            } catch (error) {
+                console.error(error);
+            }
         }
     }
 
@@ -14,12 +28,24 @@ export const getMyList = () => {
 
 export const addToMyList = (movieData) => {
     const duplicateItem = localStorage.getItem(movieData.id);
+
     if(duplicateItem){
         return true;
     }
 
-    localStorage.setItem(movieData.id, JSON.stringify(movieData));
-    return false;
+    try {
+        const {error, value} = movieSchema.valiadate(movieData);
+
+        if(error){
+            throw error;
+        }
+
+        localStorage.setItem(value.id, JSON.stringify(value));
+        return false;
+    } catch (error) {
+        console.error(error);
+        return true;
+    }
 }
 
 export const removeFromMyList = (movieId) => {

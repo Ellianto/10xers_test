@@ -50,6 +50,7 @@ function App() {
         }
     }, [genres]);
 
+    //!Fetch Saved Movie in Local Storage
     useEffect(() => {
         if(listUpdated){
             setSavedMovieList(getMyList());

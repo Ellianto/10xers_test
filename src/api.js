@@ -5,7 +5,7 @@ const API_KEY = '9be5962f75cabd26c04eb4443674e0d2';
 const BASE_API_URL = 'https://api.themoviedb.org/3';
 
 
-const movieSchema = Joi.object({
+export const movieSchema = Joi.object({
     title: Joi.string().required(),
     overview: Joi.string().required(),
     backdrop_path: Joi.alternatives().try(Joi.string(), Joi.optional())
