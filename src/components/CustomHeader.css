@@ -1,6 +1,6 @@
 .sticky-header{
     position:sticky;
-    top:-432px;
+    top:-30vh;
     z-index: 10;
 }
 

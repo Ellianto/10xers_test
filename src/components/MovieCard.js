@@ -62,12 +62,10 @@ function MovieCard(props){
                 alt={`${movie.title} Poster Image`} 
                 width="300"/>
             <Card.Body>
-                <Card.Title>
-                    {
-                        movie.title.length > 22 ? movie.title.substr(0, 20)  + '...' : movie.title
-                    }
+                <Card.Title className="text-truncate">
+                    {movie.title}
                 </Card.Title>
-                <Card.Text as="div">
+                <Card.Text className="text-justify">
                     {
                         movie.overview.length > 90 ? movie.overview.substr(0, 87) + '...' : movie.overview
                     }
@@ -127,7 +125,7 @@ function MovieCard(props){
 
     return(
         !movie ? null :
-        <Col xs={10} sm={5} md={3} className="h-100">
+        <Col xs={10} sm={5} md={3} className="h-100 align-items-stretch">
             {
                 !props.onHover ? cardElement :
                 <OverlayTrigger

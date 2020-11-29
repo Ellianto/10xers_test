@@ -14,10 +14,10 @@ function CustomHeader(props){
         <div key={movie.id}>
             <img
                 className="d-block w-100"
-                style={{objectFit:'cover', objectPosition:'right center'}}
+                style={{objectFit:'cover', objectPosition:'right center', height:'40vh'}}
                 src={getMovieBackdropUrl(movie.backdrop_path)}
                 alt={movie.title + " Backdrop Image"}
-                height={512}
+                // height={512}
             />
         </div>
     ));
