@@ -16,8 +16,8 @@ function MovieList(props){
     return(
         <Container fluid={true}>
             <Row>
-                <Col xs={12} md={3} className="h-100">
-                    <h3> {props.genre ? `${props.genre} Movies` : 'My Movies List'} </h3>
+                <Col xs={12} className="h-100">
+                    <h3 className="text-truncate"> {props.genre ? `${props.genre} Movies` : 'My Movies List'} </h3>
                 </Col>
             </Row>
             <SimpleBar>
@@ -33,7 +33,7 @@ function MovieList(props){
                                 props.movies.map(movie => (
                                     <CSSTransition
                                         key={movie.id}
-                                        timeout={1000}
+                                        timeout={500}
                                         classNames='movie-card'
                                     >
                                         <MovieCard
@@ -45,7 +45,6 @@ function MovieList(props){
                                 ))
                             }
                         </TransitionGroup>
-                        
                     }
                 </Row>
             </SimpleBar>
