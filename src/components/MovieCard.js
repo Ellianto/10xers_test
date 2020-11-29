@@ -125,7 +125,7 @@ function MovieCard(props){
 
     return(
         !movie ? null :
-        <Col xs={10} sm={5} md={3} className="h-100 align-items-stretch">
+        <Col xs={10} sm={5} md={3} className="mb-4">
             {
                 !props.onHover ? cardElement :
                 <OverlayTrigger
@@ -136,7 +136,6 @@ function MovieCard(props){
                     {cardElement}
                 </OverlayTrigger>
             }
-            
         </Col>
     );
 }

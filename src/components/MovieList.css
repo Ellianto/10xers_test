@@ -1,0 +1,22 @@
+/* 
+    Animation Classes 
+    Reference: https://reactcommunity.org/react-transition-group/transition-group    
+*/
+
+.movie-card-enter {
+    opacity: 0;
+}
+
+.movie-card-enter-active {
+    opacity: 1;
+    transition: opacity 700ms ease-in;
+}
+
+.movie-card-exit {
+    opacity: 1;
+}
+
+.movie-card-exit-active {
+    opacity: 0;
+    transition: opacity 500ms ease-in;
+}

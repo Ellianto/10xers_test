@@ -34,7 +34,7 @@ export const addToMyList = (movieData) => {
     }
 
     try {
-        const {error, value} = movieSchema.valiadate(movieData);
+        const {error, value} = movieSchema.validate(movieData);
 
         if(error){
             throw error;
